@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shuddh Jal - Location</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&callback=initMap" async defer></script>
+    <style>
+        header {
+            padding: 10px 0;
+            background: #f8f9fa;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        header .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        header .menu-icon, header .search-icon {
+            width: 24px;
+            height: 24px;
+            cursor: pointer;
+        }
+        header h1 {
+            font-size: 1.5rem;
+            margin: 0;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        #location {
+            margin-top: 10px;
+            font-size: 1.2rem;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <img src="images/menu.png" alt="Menu Icon" class="menu-icon" onclick="navigateTo('index.html')">
+            <h1>Location Information</h1>
+            <img src="images/search.png" alt="Search Icon" class="search-icon" onclick="openGoogleMaps()">
+        </div>
+    </header>
+    <main>
+        <div class="container">
+            <h2>Current Location</h2>
+            <div id="location">Fetching location...</div>
+            <div id="map" style="height: 500px; width: 100%;"></div>
+        </div>
+    </main>
+    <script>
+        function navigateTo(page) {
+            window.location.href = page;
+        }
+
+        function openGoogleMaps() {
+            window.open("https://www.google.com/maps", "_blank");
+        }
+
+        function initMap(lat = 20.5937, lon = 78.9629) {
+            const userLocation = { lat: lat, lng: lon };
+            const map = new google.maps.Map(document.getElementById('map'), {
+                zoom: 8,
+                center: userLocation,
+            });
+
+            const marker = new google.maps.Marker({
+                position: userLocation,
+                map: map,
+                title: 'Your Location',
+            });
+
+            const waterBodies = [
+                { lat: 13.138558, lng: 77.477890, title: 'Water Body 1' },
+                { lat: 20.7038, lng: 78.9129, title: 'Water Body 2' },
+            ];
+
+            waterBodies.forEach((body) => {
+                new google.maps.Marker({
+                    position: body,
+                    map: map,
+                    title: body.title,
+                });
+            });
+        }
+
+        function showPosition(position) {
+            const lat = position.coords.latitude;
+            const lon = position.coords.longitude;
+            document.getElementById("location").innerHTML = `Latitude: ${lat} <br> Longitude: ${lon}`;
+            initMap(lat, lon);
+        }
+
+        function showError(error) {
+            let errorMessage = '';
+            switch (error.code) {
+                case error.PERMISSION_DENIED:
+                    errorMessage = "User denied the request for Geolocation.";
+                    break;
+                case error.POSITION_UNAVAILABLE:
+                    errorMessage = "Location information is unavailable.";
+                    break;
+                case error.TIMEOUT:
+                    errorMessage = "The request to get user location timed out.";
+                    break;
+                case error.UNKNOWN_ERROR:
+                    errorMessage = "An unknown error occurred.";
+                    break;
+            }
+            document.getElementById("location").innerHTML = errorMessage;
+        }
+
+        document.addEventListener("DOMContentLoaded", function() {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(showPosition, showError);
+            } else {
+                document.getElementById("location").innerHTML = "Geolocation is not supported by this browser.";
+            }
+        });
+    </script>
+</body>
+</html>

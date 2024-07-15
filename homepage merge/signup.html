@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ShuddhJal - Create New Account With Us</title>
+
+    <!-- Bootstrap CSS -->
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,500;1,400&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html, body {
+            height: 100%;
+            font-size: 62.5%;
+            font-family: 'Roboto', sans-serif;
+            background: url('https://tse2.mm.bing.net/th/id/OIP.edx1BgM3HOf_HVdBv3wWcwHaE8?rs=1&pid=ImgDetMain') no-repeat center center fixed;
+            background-size: cover;
+            display: flex;
+            margin: 0;
+            padding:0;
+            flex-direction: column;
+            min-height: 100vh;
+
+        }
+
+        .head-section {
+            border-bottom: 1px solid #E2E8F0;
+        }
+
+        .myNavbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 1.5rem;
+            background-color: hsl(192, 66%, 24%);
+        }
+
+        /* hamburger styles */
+        .hamburger {
+            display: none;
+        }
+
+        .bar {
+            display: block;
+            width: 25px;
+            height: 3px;
+            margin: 5px auto;
+            transition: all 0.3s ease-in-out;
+            background-color: white;
+        }
+
+        .myNavbar-menu {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .myNavbar-item {
+            margin-left: 5rem;
+        }
+
+        .MyNav-link {
+            font-size: 1.6rem;
+            font-weight: 400;
+            color: #989a9e;
+        }
+
+        .MyNav-link:hover {
+            color: white;
+            font-size: 2rem;
+            text-decoration: none;
+        }
+
+        .logo {
+            font-size: 2.1rem;
+            font-weight: 500;
+            color: white;
+        }
+
+        .logo:hover {
+            font-size: 3rem;
+            color: white;
+            text-decoration: none;
+        }
+
+        @media only screen and (max-width: 768px) {
+            .myNavbar-menu {
+                position: fixed;
+                left: -100%;
+                top: 5rem;
+                z-index: 2;
+                flex-direction: column;
+                background-color: rgb(203, 227, 247);
+                width: 100%;
+                border-radius: 10px;
+                text-align: center;
+                transition: 0.3s;
+                box-shadow: 0 10px 27px rgba(0, 0, 0, 0.05);
+            }
+
+            .myNavbar-menu.active {
+                left: 0;
+            }
+
+            .myNavbar-item {
+                margin: 2.5rem 0;
+            }
+
+            .MyNav-link:hover {
+                color: black;
+                font-size: 20px;
+            }
+
+            .logo:hover {
+                font-size: 3rem;
+            }
+
+            .hamburger {
+                display: block;
+                cursor: pointer;
+            }
+
+            /* to create that X animation when we click on the hamburger */
+            .hamburger.active .bar:nth-child(2) {
+                opacity: 0;
+            }
+
+            .hamburger.active .bar:nth-child(1) {
+                transform: translateY(8px) rotate(45deg);
+            }
+
+            .hamburger.active .bar:nth-child(3) {
+                transform: translateY(-8px) rotate(-45deg);
+            }
+        }
+
+        .container {
+            margin-top: 5rem;
+            padding: 2rem;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 50px;
+            box-shadow: 0 10px 27px rgba(0, 0, 0, 0.1);
+            max-width: 600px;
+            width: 100%;
+        }
+
+        .title {
+            text-align: center;
+            margin-bottom: 2rem;
+            font-size: 2.4rem;
+            color: hsl(192, 66%, 24%);
+        }
+
+        .input-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .input-group label {
+            display: block;
+            font-size: 1.4rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .input-group input {
+            font-size: 1.6rem;
+            padding: 0.8rem;
+        }
+
+        .btn-block {
+            width: 100%;
+        }
+
+        #confirmation-message {
+            text-align: center;
+            font-size: 1.8rem;
+            margin-top: 2rem;
+        }
+
+        #confirmation-message p {
+            margin-bottom: 1rem;
+        }
+    </style>
+</head>
+<body>
+
+<div class="head-section">
+    <nav class="myNavbar">
+        <a href="#" class="logo">SHUDDHJAL</a>
+        <div class="hamburger">
+            <span class="bar"></span>
+            <span class="bar"></span>
+            <span class="bar"></span>
+        </div> <!-- hamburger -->
+        <ul class="myNavbar-menu">
+            <li class="myNavbar-item">
+                <a href="login.html" class="MyNav-link">Login</a>
+            </li>
+        </ul>
+    </nav> <!-- myNavbar -->
+</div> <!-- head-section -->
+
+<div class="container">
+    <div class="row">
+        <div class="col-lg-2"></div> <!-- Reduced the side columns to make the middle column narrower -->
+
+        <div class="col-lg-8"> <!-- Reduced the middle column width to make it narrower -->
+            <div id="ui">
+                <h2 class="title">Create a new account</h2>
+                <form class="form form-group text-center" action="#" class="form" onsubmit="return validateForm()">
+                    <div class="input-group">
+                        <label for="username">Username:</label>
+                        <input type="text" id="username" class="input form-control" placeholder="Enter your Username" required>
+                    </div>
+
+                    <div class="input-group">
+                        <label for="firstname">First Name:</label>
+                        <input type="text" id="firstname" class="input form-control" placeholder="Enter your First Name" required>
+                    </div>
+
+                    <div class="input-group">
+                        <label for="lastname">Last Name:</label>
+                        <input type="text" id="lastname" class="input form-control" placeholder="Enter your Last Name" required>
+                    </div>
+
+                    <div class="input-group">
+                        <label for="email">Email:</label>
+                        <input type="email" id="email" class="input form-control" placeholder="Enter your Email" required>
+                    </div>
+
+                    <div class="input-group">
+                        <label for="phone">Phone Number:</label>
+                        <input type="tel" id="phone" class="input form-control" placeholder="Enter your Phone Number" required>
+                    </div>
+
+                    <div class="input-group">
+                        <label for="password">Password:</label>
+                        <input type="password" id="password" class="input form-control" placeholder="Enter your Password" required>
+                    </div>
+
+                    <div class="input-group">
+                        <label for="confirm_password">Confirm Password:</label>
+                        <input type="password" id="confirm_password" class="input form-control" placeholder="Confirm your Password" required>
+                    </div>
+
+                    <div class="input-group">
+                        <label for="country">Country:</label>
+                        <input type="text" id="country" class="input form-control" placeholder="Enter your Country" required>
+                    </div>
+
+                    <div class="input-group">
+                        <label for="state">State:</label>
+                        <input type="text" id="state" class="input form-control" placeholder="Enter your State" required>
+                    </div>
+
+                    <div class="input-group">
+                        <label for="address">Address:</label>
+                        <input type="text" id="address" class="input form-control" placeholder="Enter your Address" required>
+                    </div>
+
+                    <div class="input-group">
+                        <label for="pincode">Pincode:</label>
+                        <input type="text" id="pincode" class="input form-control" placeholder="Enter your Pincode" required>
+                    </div>
+
+                    <input type="submit" class="button btn btn-primary btn-block btn-lg" value="Create account" name="submit">
+                </form> <!-- form -->
+
+                <div id="confirmation-message" style="display: none;">
+                    <p>Your account has been created successfully!</p>
+                    <button onclick="redirectToLogin()" class="btn btn-primary">OK</button>
+                </div>
+            </div> <!-- ui -->
+
+        </div> <!-- Main-column -->
+
+        <div class="col-lg-2"></div> <!-- Reduced the side columns to make the middle column narrower -->
+    </div> <!-- row -->
+</div> <!-- container -->
+
+<!-- JavaScript files -->
+<script>
+    function validateForm() {
+        var password = document.getElementById('password').value;
+        var confirm_password = document.getElementById('confirm_password').value;
+
+        if (password != confirm_password) {
+            alert("Passwords do not match");
+            return false;
+        }
+
+        document.getElementById('confirmation-message').style.display = 'block';
+        return false;
+    }
+
+    function redirectToLogin() {
+        alert("Your Account has been created.");
+        window.location.href = "login.html";
+    }
+</script>
+</body>
+</html>

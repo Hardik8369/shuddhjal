@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shuddh Jal - Map</title>
+    <link rel="stylesheet" href="location.css">
+    <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&callback=initMap" async defer></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+
+        header {
+            padding: 10px 0;
+            background:transparent;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        header .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        header .menu-icon, header .search-icon {
+            width: 24px;
+            height: 24px;
+            cursor: pointer;
+        }
+        header h1 {
+            font-size: 1.5rem;
+            margin: 0;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        #location {
+            margin-top: 10px;
+            font-size: 1.2rem;
+        }
+        .google-map {
+            height: 300px;
+            width: 100%;
+            margin-top: 20px;
+            position: relative;
+        }
+
+        .google-map iframe {
+            height: 100%;
+            width: 100%;
+            position: absolute;
+            border: 0;
+        }
+        #water-body {
+            margin-top: 20px;
+            font-size: 1.2rem;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <img src="images/menu.png" alt="Menu Icon" class="menu-icon" onclick="navigateTo('index.html')">
+            <h1>Water Bodies Map</h1>
+            <img src="images/search.png" alt="Search Icon" class="search-icon" onclick="openGoogleMaps()">
+        </div>
+    </header>
+    <main>
+        <div class="container">
+            <div class="google-map">
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3888.5965994318917!2d77.57408992409502!3d12.933629037378232!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bae15908c6c9377%3A0x4e55b7116dcc59fd!2sYediyur%20Lake!5e0!3m2!1sen!2sin!4v1720844708819!5m2!1sen!2sin"
+                allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+            </div>
+            <div class="google-map">
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3888.5965994318917!2d77.57408992409502!3d12.933629037378232!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bae15908c6c9377%3A0x4e55b7116dcc59fd!2sYediyur%20Lake!5e0!3m2!1sen!2sin!4v1720844708819!5m2!1sen!2sin"
+                allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+            </div>
+            <div id="water-body"></div>
+        </div>
+    </main>
+    <script>
+        function navigateTo(page) {
+            window.location.href = page;
+        }
+
+        function openGoogleMaps() {
+            window.open("https://www.google.com/maps", "_blank");
+        }
+
+        function initMap(lat = 20.5937, lon = 78.9629) {
+            const userLocation = { lat: lat, lng: lon };
+            const map = new google.maps.Map(document.getElementById('map'), {
+                zoom: 8,
+                center: userLocation,
+            });
+
+            const marker = new google.maps.Marker({
+                position: userLocation,
+                map: map,
+                title: 'Your Location',
+            });
+
+            const waterBody1 = { lat: 13.138558, lng: 77.477890, title: 'Nearby River 1' };
+            const waterBody2 = { lat: 13.435678, lng: 77.606321, title: 'Nearby Lake' };
+            const waterBody3 = { lat: 12.970214, lng: 77.609808, title: 'Nearby River 2' };
+
+            const waterBodyMarker1 = new google.maps.Marker({
+                position: waterBody1,
+                map: map,
+                title: waterBody1.title,
+            });
+
+            const waterBodyMarker2 = new google.maps.Marker({
+                position: waterBody2,
+                map: map,
+                title: waterBody2.title,
+            });
+
+            const waterBodyMarker3 = new google.maps.Marker({
+                position: waterBody3,
+                map: map,
+                title: waterBody3.title,
+            });
+
+            document.getElementById('water-body').innerHTML = `
+                <a href="https://www.google.com/maps/search/?api=1&query=${waterBody1.lat},${waterBody1.lng}" target="_blank">${waterBody1.title}</a><br>
+                <a href="https://www.google.com/maps/search/?api=1&query=${waterBody2.lat},${waterBody2.lng}" target="_blank">${waterBody2.title}</a><br>
+                <a href="https://www.google.com/maps/search/?api=1&query=${waterBody3.lat},${waterBody3.lng}" target="_blank">${waterBody3.title}</a>`;
+        }
+
+        function showPosition(position) {
+            const lat = position.coords.latitude;
+            const lon = position.coords.longitude;
+            document.getElementById("location").innerHTML = `Latitude: ${lat} <br> Longitude: ${lon}`;
+            initMap(lat, lon);
+        }
+
+        function showError(error) {
+            let errorMessage = '';
+            switch (error.code) {
+                case error.PERMISSION_DENIED:
+                    errorMessage = "User denied the request for Geolocation.";
+                    break;
+                case error.POSITION_UNAVAILABLE:
+                    errorMessage = "Location information is unavailable.";
+                    break;
+                case error.TIMEOUT:
+                    errorMessage = "The request to get user location timed out.";
+                    break;
+                case error.UNKNOWN_ERROR:
+                    errorMessage = "An unknown error occurred.";
+                    break;
+            }
+            document.getElementById("location").innerHTML = errorMessage;
+        }
+
+        document.addEventListener("DOMContentLoaded", function() {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(showPosition, showError);
+            } else {
+                document.getElementById("location").innerHTML = "Geolocation is not supported by this browser.";
+            }
+        });
+    </script>
+</body>
+</html>

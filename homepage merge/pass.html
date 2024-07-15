@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Forget Password</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            background-image: url('https://tse2.mm.bing.net/th/id/OIP.edx1BgM3HOf_HVdBv3wWcwHaE8?rs=1&pid=ImgDetMain');
+            background-size: cover;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            margin: 200px;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        
+        .container {
+            background-color:aliceblue;
+            padding: 50px;
+            border-radius: 50px;
+            box-shadow: 10px rgba(0, 0, 0, 0.1);
+            width: 300px;
+            height: 700px;
+            text-align: center;
+        }
+        
+        h2 {
+            margin-bottom: 20px;
+        }
+        
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+        
+        label {
+            text-align: left;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        
+        input {
+            margin-bottom: 20px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        
+        button {
+            padding: 10px;
+            background-color: #007BFF;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        
+        button:hover {
+            background-color: #0056b3;
+        }
+        
+        .eye-icon {
+            cursor: pointer;
+            position:absolute;
+            left: -30px;
+            top: -30px;
+        }
+        
+        .eye-icon:hover {
+            color: #007BFF;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>Forget Password</h2>
+    
+    <form id="forgetPasswordForm" action="reset-password.html" method="post">
+        <label for="phoneNumber">Phone Number:</label>
+        <input type="text" id="phoneNumber" name="phoneNumber" required><br><br>
+        
+        <button type="button" onclick="generateOTP()">Generate OTP</button><br><br>
+        
+        <label for="otp">OTP:</label>
+        <input type="text" id="otp" name="otp" required><br><br>
+        
+        <label for="newPassword">New Password:</label>
+        <input type="password" id="newPassword" name="newPassword" required>
+        <span class="eye-icon" onclick="togglePasswordVisibility('newPassword')">&#128065;</span><br><br>
+        
+        <label for="confirmPassword">Confirm Password:</label>
+        <input type="password" id="confirmPassword" name="confirmPassword" required>
+        <span class="eye-icon" onclick="togglePasswordVisibility('confirmPassword')">&#128065;</span><br><br>
+        
+        <button type="button" onclick="submitForm()">Submit</button>
+    </form>
+</div>
+
+<script>
+    function generateOTP() {
+        // Simulate OTP generation
+        alert("OTP has been sent to your phone number.");
+    }
+
+    function togglePasswordVisibility(fieldId) {
+        var field = document.getElementById(fieldId);
+        if (field.type === "password") {
+            field.type = "text";
+        } else {
+            field.type = "password";
+        }
+    }
+
+    function submitForm() {
+        var newPassword = document.getElementById("newPassword").value;
+        var confirmPassword = document.getElementById("confirmPassword").value;
+
+        if (newPassword !== confirmPassword) {
+            alert("Passwords do not match!");
+            return false;
+        }
+
+        // Simulate form submission and show success message
+        alert("Your new password has been updated.");
+        window.location.href = "login.html";
+    }
+</script>
+
+</body>
+</html>

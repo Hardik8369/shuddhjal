@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shuddh Jal - Water Bodies Map</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            background-image: url(https://png.pngtree.com/thumb_back/fh260/background/20220215/pngtree-blue-bubble-water-drop-cosmetic-background-image_926347.jpg);
+            background-repeat: no-repeat;
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            width: 80%;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        header {
+            background-color: #f8f8f8;
+            padding: 10px 0;
+        }
+
+        .menu-icon {
+            cursor: pointer;
+            width: 30px;
+            height: auto;
+            margin-right: 10px;
+            vertical-align: middle;
+        }
+
+        h1 {
+            display: inline-block;
+            vertical-align: middle;
+            margin: 0;
+        }
+
+        button {
+            margin-bottom: 20px;
+        }
+
+        #map {
+            height: 500px;
+            width: 100%;
+            display: none;
+            margin: 20px 0;
+        }
+
+        .section {
+            border: 1px solid #ddd;
+            padding: 20px;
+            background-color: #f9f9f9;
+            text-align: left;
+            margin-bottom: 20px;
+        }
+
+        .survey-link {
+            background-color: #4CAF50;
+            color: white;
+            text-align: center;
+            padding: 10px;
+            margin-top: 20px;
+        }
+
+        .survey-link a {
+            color: white;
+            text-decoration: none;
+        }
+
+        .survey-link a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <img src="images/menu.png" alt="Menu Icon" class="menu-icon" onclick="navigateTo('index.html')">
+            <h1>Shuddh Jal - Water Bodies Map</h1>
+        </div>
+    </header>
+    <main>
+        <div class="container">
+            <button onclick="navigateTo('map.html')">Water Bodies</button>
+            <div id="map"></div>
+
+            <div class="section">
+                <h2>Benefits of Pure Water</h2>
+                <p>Pure water is essential for good health. It helps in digestion, absorption, circulation, and excretion. It also helps to maintain normal body temperature and keep tissues in the body moist.</p>
+                <ul>
+                    <li><strong>Hydration:</strong> Keeps the body hydrated and functioning optimally.</li>
+                    <li><strong>Detoxification:</strong> Flushes out toxins from the body.</li>
+                    <li><strong>Skin Health:</strong> Promotes healthy and glowing skin.</li>
+                    <li><strong>Joint Health:</strong> Lubricates joints and reduces the risk of arthritis.</li>
+                    <li><strong>Weight Loss:</strong> Helps in maintaining a healthy weight.</li>
+                </ul>
+            </div>
+
+            <div class="section">
+                <h2>Emergency Contacts</h2>
+                <ul>
+                    <li><strong>Fire Department:</strong> 101</li>
+                    <li><strong>Police:</strong> 100</li>
+                    <li><strong>Ambulance:</strong> 102</li>
+                    <li><strong>Disaster Management:</strong> 108</li>
+                    <li><strong>Local Water Authority:</strong> 1800-123-456</li>
+                    <li><strong>BWSSB:</strong>1916</li>
+                </ul>
+            </div>
+
+            <div class="section">
+                <h2>Conservation Methods</h2>
+                <ul>
+                    <li>Fix leaks promptly to prevent water wastage.</li>
+                    <li>Use water-efficient fixtures and appliances.</li>
+                    <li>Harvest rainwater for gardening and cleaning.</li>
+                    <li>Practice mindful water usage by turning off taps when not in use.</li>
+                    <li>Promote water conservation awareness in the community.</li>
+                </ul>
+            </div>
+
+            <div class="section">
+                <h2>Smart Water Management</h2>
+                <p>Smart water management involves using technology and innovative practices to efficiently manage water resources. This includes:</p>
+                <ul>
+                    <li>Implementing smart meters to monitor water usage in real-time.</li>
+                    <li>Using sensors to detect leaks and optimize irrigation.</li>
+                    <li>Applying data analytics to forecast water demand and supply.</li>
+                    <li>Integrating water management systems with urban planning.</li>
+                    <li>Encouraging community participation in water conservation initiatives.</li>
+                </ul>
+            </div>
+
+            <div class="survey-link">
+                <a href="Water_pond_tanks_2021.csv" target="_blank">View Surveyed Data</a>
+            </div>
+        </div>
+    </main>
+    <script>
+        function navigateTo(page) {
+            window.location.href = page;
+        }
+    </script>
+</body>
+</html>

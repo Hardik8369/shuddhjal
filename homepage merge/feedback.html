@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shuddh Jal - Feedback</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .emoji-rating span {
+            font-size: 2em;
+            cursor: pointer;
+            margin: 0 5px;
+        }
+        .emoji-rating .selected {
+            border: green solid;
+            border-radius: 50%;
+            padding: 5px;
+        }
+        .star-rating input[type="radio"] {
+            display: none;
+        }
+        .star-rating label {
+            font-size: 3em;
+            color: green;
+            cursor: pointer;
+        }
+        .star-rating input[type="radio"]:checked ~ label {
+            color: gold;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <img src="images/menu.png" alt="Menu Icon" class="menu-icon" onclick="navigateTo('index.html')">
+            <h1>Feedback</h1>
+        </div>
+    </header>
+    <main>
+        <div class="container">
+            <h2>Feedback Questions</h2>
+            <form id="feedback-form">
+                <div>
+                    <h3>Rate Your Experience with Our Website</h3>
+                    <div class="emoji-rating" id="emoji-rating">
+                        <span data-rating="1" onclick="selectEmoji(1)">😠</span>
+                        <span data-rating="2" onclick="selectEmoji(2)">😞</span>
+                        <span data-rating="3" onclick="selectEmoji(3)">😐</span>
+                        <span data-rating="4" onclick="selectEmoji(4)">😊</span>
+                        <span data-rating="5" onclick="selectEmoji(5)">😍</span>
+                    </div>
+                </div>
+                <div>
+                    <h3>Rate Our Customer Service</h3>
+                    <div class="star-rating">
+                        <input type="radio" id="star5" name="customer-service" value="5"><label for="star5">★</label>
+                        <input type="radio" id="star4" name="customer-service" value="4"><label for="star4">★</label>
+                        <input type="radio" id="star3" name="customer-service" value="3"><label for="star3">★</label>
+                        <input type="radio" id="star2" name="customer-service" value="2"><label for="star2">★</label>
+                        <input type="radio" id="star1" name="customer-service" value="1"><label for="star1">★</label>
+                    </div>
+                </div>
+                <div>
+                    <h3>Additional Feedback</h3>
+                    <label for="experience">What did you like about our website?</label><br>
+                    <textarea id="experience" name="experience" rows="4" cols="50"></textarea><br><br>
+                    <label for="improvement">What can we improve?</label><br>
+                    <textarea id="improvement" name="improvement" rows="4" cols="50"></textarea><br><br>
+                </div>
+                <button type="submit">Submit Feedback</button>
+            </form>
+        </div>
+    </main>
+    <script>
+        function navigateTo(page) {
+            window.location.href = page;
+        }
+
+        function selectEmoji(rating) {
+            const emojis = document.querySelectorAll('.emoji-rating span');
+            emojis.forEach((emoji, index) => {
+                if (index < rating) {
+                    emoji.classList.add('selected');
+                } else {
+                    emoji.classList.remove('selected');
+                }
+            });
+        }
+
+        document.getElementById('feedback-form').addEventListener('submit', function(event) {
+            event.preventDefault();
+            alert('Thank you for your feedback!');
+        });
+    </script>
+</body>
+</html>

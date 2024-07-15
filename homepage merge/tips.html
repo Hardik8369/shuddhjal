@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shuddh Jal - Tips</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            background-color: transparent;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background: transparent;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        header {
+            background: aqua;
+            color: black;
+            padding: 10px 0;
+            border-radius: 8px 8px 0 0;
+        }
+
+        header .container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .menu-icon {
+            width: 30px;
+            cursor: pointer;
+        }
+
+        main {
+            margin-top: 20px;
+        }
+
+        button {
+            background: #007BFF;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+            font-size: 16px;
+            border-radius: 4px;
+            margin-top: 10px;
+        }
+
+        button:hover {
+            background: #0056b3;
+        }
+
+        #tips-container {
+            margin-top: 20px;
+        }
+
+        #tips-list {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        #tips-list li {
+            background: #f9f9f9;
+            margin-bottom: 10px;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+            display: block;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <img src="images/menu.png" alt="Menu Icon" class="menu-icon" onclick="navigateTo('index.html')">
+            <h1>Water Conservation Tips</h1>
+        </div>
+    </header>
+    <main>
+        <div class="container">
+            <h2>Conservation Methods</h2>
+            <p>Click the button below to learn about various tips and methods for water conservation.</p>
+            <button onclick="showTips()">Show Tips</button>
+            <div id="tips-container" style="display: none;">
+                <ul id="tips-list">
+                    <!-- Tips will be dynamically added here -->
+                </ul>
+            </div>
+        </div>
+    </main>
+    <script>
+        function navigateTo(page) {
+            window.location.href = page;
+        }
+
+        function showTips() {
+            const tips = [
+                "Fix leaks promptly to save water.",
+                "Use a broom instead of a hose to clean driveways and sidewalks.",
+                "Install water-efficient fixtures and appliances.",
+                "Collect rainwater for gardening and other outdoor uses.",
+                "Water your lawn and garden during the coolest part of the day.",
+                "Turn off the tap while brushing your teeth or shaving.",
+                "Take shorter showers to reduce water usage.",
+                "Use a dishwasher only when it is fully loaded.",
+                "Use a basin to wash fruits and vegetables instead of running water continuously.",
+                "Plant drought-resistant trees and plants in your garden.",
+                "Tips to save water in home.",
+                "Turn off the faucet while brushing your teeth.",
+                "Only run the washing machine and dishwasher when you have a full load.",
+                "Use a low flow shower head and faucet aerators.",
+                "Fix leaks.",
+                "Install a dual flush or low flow toilet or put a conversion kit on your existing toilet.",
+                "Don't overwater your lawn or water during peak periods, and install rain sensors on irrigation systems.",
+                "Install a rain barrel for outdoor watering.",
+                "Plant a rain garden for catching stormwater runoff from your roof, driveway, and other hard surfaces.",
+                "Monitor your water usage on your water bill and ask your local government about a home water audit.",
+                "Share your knowledge about saving water through conservation and efficiency with your neighbors."
+            ];
+
+            const tipsContainer = document.getElementById('tips-container');
+            const tipsList = document.getElementById('tips-list');
+
+            tipsList.innerHTML = '';
+            tips.forEach(tip => {
+                const listItem = document.createElement('li');
+                listItem.textContent = tip;
+                tipsList.appendChild(listItem);
+            });
+
+            tipsContainer.style.display = 'block';
+        }
+    </script>
+</body>
+</html>
