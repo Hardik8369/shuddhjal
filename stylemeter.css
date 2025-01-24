@@ -1,0 +1,120 @@
+/* General Styles */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+}
+
+.container {
+    width: 80%;
+    margin: auto;
+    overflow: hidden;
+}
+
+/* Header Styles */
+header {
+    background: #50b3a2;
+    color: #ffffff;
+    padding-top: 30px;
+    min-height: 70px;
+    border-bottom: #e8491d 3px solid;
+}
+
+header .container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+header h1 {
+    margin: 0;
+    font-size: 24px;
+}
+
+header img.menu-icon {
+    width: 30px;
+    height: 30px;
+    cursor: pointer;
+}
+
+/* Main Styles */
+main {
+    padding: 20px;
+    background: #ffffff;
+    margin: 20px 0;
+}
+
+h1, h2 {
+    color: #333;
+}
+
+h1 {
+    margin-bottom: 20px;
+}
+
+h2 {
+    margin-top: 20px;
+}
+
+/* Form Styles */
+.form-group {
+    margin-bottom: 15px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+.form-group input[type="file"],
+.form-group textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+.form-group button {
+    background: #50b3a2;
+    color: #ffffff;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.form-group button:hover {
+    background: #45a095;
+}
+
+/* Preview Image */
+#photoPreview {
+    margin-top: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+/* Updates Container */
+#updatesContainer {
+    margin-top: 20px;
+}
+
+.update {
+    background: #f9f9f9;
+    border: 1px solid #ddd;
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 4px;
+}
+
+.update img {
+    display: block;
+    margin-top: 10px;
+    max-width: 100px;
+    max-height: 100px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}

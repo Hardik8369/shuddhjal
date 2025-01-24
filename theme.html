@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Theme Switcher</title>
+    <style>
+        body.light-mode {
+            background-color: white;
+            color: black;
+        }
+        body.dark-mode {
+            background-color: black;
+            color: white;
+        }
+        .theme-switcher {
+            position: fixed;
+            top: 10px;
+            left: 10px;
+            cursor: pointer;
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px;
+            border-radius: 5px;
+        }
+        .side-menu {
+            height: 100%;
+            width: 0;
+            position: fixed;
+            z-index: 1;
+            top: 0;
+            left: 0;
+            background-color: #111;
+            overflow-x: hidden;
+            transition: 0.5s;
+            padding-top: 60px;
+        }
+        .side-menu a {
+            padding: 8px 8px 8px 32px;
+            text-decoration: none;
+            font-size: 25px;
+            color: white;
+            display: block;
+            transition: 0.3s;
+        }
+        .side-menu a:hover {
+            background-color: #575757;
+        }
+        .side-menu .close-btn {
+            position: absolute;
+            top: 0;
+            right: 25px;
+            font-size: 36px;
+            margin-left: 50px;
+        }
+    </style>
+</head>
+<body class="light-mode">
+    <div class="theme-switcher" onclick="openSideMenu()">Change Theme</div>
+
+    <div id="sideMenu" class="side-menu">
+        <a href="javascript:void(0)" class="close-btn" onclick="closeSideMenu()">&times;</a>
+        <a href="#" onclick="switchTheme('light')">Light Mode</a>
+        <a href="#" onclick="switchTheme('dark')">Dark Mode</a>
+    </div>
+
+    <script>
+        function openSideMenu() {
+            document.getElementById('sideMenu').style.width = '250px';
+        }
+
+        function closeSideMenu() {
+            document.getElementById('sideMenu').style.width = '0';
+        }
+
+        function switchTheme(theme) {
+            if (theme === 'light') {
+                document.body.classList.remove('dark-mode');
+                document.body.classList.add('light-mode');
+            } else if (theme === 'dark') {
+                document.body.classList.remove('light-mode');
+                document.body.classList.add('dark-mode');
+            }
+            closeSideMenu();
+        }
+
+        // Close the side menu if the user clicks outside of it
+        window.onclick = function(event) {
+            if (!event.target.matches('.theme-switcher') && !event.target.matches('.side-menu') && !event.target.matches('.side-menu a')) {
+                closeSideMenu();
+            }
+        }
+    </script>
+</body>
+</html>

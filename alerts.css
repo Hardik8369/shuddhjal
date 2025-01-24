@@ -1,0 +1,76 @@
+/* General Styles */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+}
+
+.container {
+    width: 80%;
+    margin: auto;
+    overflow: hidden;
+}
+
+/* Header Styles */
+header {
+    background: #50b3a2;
+    color: #ffffff;
+    padding-top: 30px;
+    min-height: 70px;
+    border-bottom: #e8491d 3px solid;
+}
+
+header .container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+header h1 {
+    margin: 0;
+    font-size: 24px;
+}
+
+header img.menu-icon {
+    width: 30px;
+    height: 30px;
+    cursor: pointer;
+}
+
+/* Main Styles */
+main {
+    padding: 20px;
+    background: #ffffff;
+    margin: 20px 0;
+}
+
+h2 {
+    color: hsla(0, 80%, 50%, 0.292);
+    margin-top: 0;
+}
+
+/* Alert Styles */
+#alerts {
+    margin-top: 20px;
+}
+
+.alert {
+    background: #f9f9f9;
+    border: 1px solid #ddd;
+    padding: 15px;
+    margin-bottom: 10px;
+    border-radius: 4px;
+}
+
+.alert h3 {
+    margin: 0 0 10px;
+}
+
+.alert p {
+    margin: 5px 0;
+}
+
+.alert p strong {
+    font-weight: bold;
+}

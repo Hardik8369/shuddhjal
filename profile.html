@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shuddh Jal - Profile</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            font-family: Arial, sans-serif;
+        }
+        header, main {
+            width: 100%;
+            text-align: center;
+        }
+        header .container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        header .menu-icon {
+            margin-right: 10px;
+        }
+        main .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            max-width: 500px;
+        }
+        .form-group {
+            margin: 10px 0;
+            width: 100%;
+            text-align: left;
+        }
+        .form-group label, .form-group input, .form-group button {
+            width: 100%;
+        }
+        .form-group img {
+            display: block;
+            margin: 10px 0;
+            /* Center align image */
+            margin-left: auto;
+            margin-right: auto;
+        }
+        button {
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <img src="images/menu.png" alt="Menu Icon" class="menu-icon" onclick="navigateTo('index.html')">
+            <h1>User Profile</h1>
+        </div>
+    </header>
+    <main>
+        <div class="container">
+            <h2>Profile Information</h2>
+            <form id="profileForm">
+                <div class="form-group">
+                    <label for="profilePicture">Profile Picture:</label>
+                    <input type="file" id="profilePicture" name="profilePicture" accept="image/*">
+                    <img id="profilePicturePreview" src="#" alt="Profile Picture Preview" style="display:none; width: 100px; height: 100px;"/>
+                </div>
+                <div class="form-group">
+                    <label for="firstName">First Name:</label>
+                    <input type="text" id="firstName" name="firstName">
+                </div>
+                <div class="form-group">
+                    <label for="lastName">Last Name:</label>
+                    <input type="text" id="lastName" name="lastName">
+                </div>
+                <div class="form-group">
+                    <label for="phoneNumber">Phone Number:</label>
+                    <input type="text" id="phoneNumber" name="phoneNumber">
+                </div>
+                <div class="form-group">
+                    <label for="email">Email ID:</label>
+                    <input type="email" id="email" name="email">
+                </div>
+                <div class="form-group">
+                    <button type="button" onclick="deactivateAccount()">Deactivate Account</button>
+                    <button type="button" onclick="deleteAccount()">Delete Account</button>
+                    <button type="submit">Save Changes</button>
+                </div>
+            </form>
+        </div>
+    </main>
+    <script>
+        function navigateTo(page) {
+            window.location.href = page;
+        }
+
+        function deactivateAccount() {
+            if (confirm('Are you sure you want to deactivate your account?')) {
+                // Logic to deactivate account
+                alert('Account deactivated');
+            }
+        }
+
+        function deleteAccount() {
+            if (confirm('Are you sure you want to delete your account? This action cannot be undone.')) {
+                // Logic to delete account
+                alert('Account deleted');
+            }
+        }
+
+        document.getElementById('profileForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            // Logic to save changes
+            alert('Profile updated successfully');
+        });
+
+        document.getElementById('profilePicture').addEventListener('change', function(event) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    const preview = document.getElementById('profilePicturePreview');
+                    preview.src = e.target.result;
+                    preview.style.display = 'block';
+                    // Redirect to homepage after 3 seconds
+                    setTimeout(() => {
+                        navigateTo('index.html');
+                    }, 3000);
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+    </script>
+</body>
+</html>

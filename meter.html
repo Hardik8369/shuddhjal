@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shuddh Jal - Meter and Water Usage Tracker</title>
+    <link rel="stylesheet" href="stylemeter.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+            background-image: url(https://png.pngtree.com/thumb_back/fh260/background/20220215/pngtree-blue-bubble-water-drop-cosmetic-background-image_926347.jpg);
+            background-repeat: no-repeat;
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        .container {
+            width: 80%;
+            margin: auto;
+            padding: 20px;
+        }
+
+        header {
+            background-color: transparent;
+            padding: 10px 0;
+            display: flex;
+            align-items: center;
+        }
+
+        .menu-icon {
+            cursor: pointer;
+            width: 30px;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .form-group input, .form-group textarea {
+            width: 100%;
+            padding: 8px;
+            box-sizing: border-box;
+        }
+
+        button {
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: #fff;
+            border: 0px;
+            cursor: pointer;
+            align-self: flex-start;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        #photoPreview {
+            display: block;
+            margin-top: 10px;
+            max-width: 100px;
+            max-height: 100px;
+        }
+
+        .update {
+            border-bottom: 1px solid #ccc;
+            padding: 10px 0;
+        }
+
+        #totalWaterDisplay, #dailyWaterDisplay {
+            margin-top: 20px;
+            border-top: 1px solid #ccc;
+            padding-top: 10px;
+        }
+
+        #updatesContainer {
+            margin-top: 20px;
+        }
+
+        /* Chat bot styling */
+        .chat-bot-icon {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            cursor: pointer;
+            z-index: 1000;
+            width: 40px;
+            height: 40px;
+        }
+
+        .chat-container {
+            display: none;
+            position: fixed;
+            bottom: 70px;
+            right: 20px;
+            width: 300px;
+            max-height: 400px;
+            overflow-y: auto;
+            background-color: white;
+            border: 1px solid #ccc;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+        }
+
+        .chat-header {
+            background-color: #007bff;
+            color: white;
+            padding: 10px;
+            text-align: center;
+        }
+
+        .chat-body {
+            padding: 10px;
+        }
+
+        .chat-input {
+            display: flex;
+            padding: 10px;
+            border-top: 1px solid #ccc;
+        }
+
+        .chat-input input {
+            flex: 1;
+            padding: 5px;
+            border: 1px solid #ccc;
+        }
+
+        .chat-input button {
+            padding: 5px 10px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+
+        .chat-input button:hover {
+            background-color: #0056b3;
+        }
+
+        .message {
+            margin-bottom: 10px;
+        }
+
+        .message.user {
+            text-align: right;
+        }
+
+        .message.bot {
+            text-align: left;
+        }
+
+        /* Complaints section */
+        .complaints-section {
+            margin-top: 20px;
+            padding-top: 10px;
+            border-top: 1px solid #ccc;
+        }
+
+        .complaint {
+            border-bottom: 1px solid #ccc;
+            padding: 10px 0;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <img src="images/menu.png" alt="Menu Icon" class="menu-icon" onclick="navigateTo('index.html')">
+            <h1>Shuddh Jal - Meter and Water Usage Tracker</h1>
+        </div>
+    </header>
+    <main>
+        <div class="container">
+            <div class="row">
+                <!-- Water Usage Tracker Section -->
+                <h2>Water Usage Tracker</h2>
+                <div>
+                    <label for="waterAmount">Enter water amount (in liters):</label>
+                    <input type="number" id="waterAmount" step="0.1">
+                    <button onclick="recordWaterUsage()">Record Water Usage</button>
+                </div>
+                <div id="totalWaterDisplay">
+                    <p>Total Water Used: <span id="totalWater"></span> liters</p>
+                </div>
+                <div id="dailyWaterDisplay">
+                    <p>Daily Water Usage: <span id="dailyWater">0</span> liters</p>
+                </div>
+            </div>
+            <div class="row">
+                <!-- Submit Updates Section -->
+                <h2>Submit Updates</h2>
+                <form id="updateForm">
+                    <div class="form-group">
+                        <label for="description">Description:</label>
+                        <textarea id="description" name="description" rows="4" cols="50" placeholder="Describe the water usage or issue..."></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="photo">Photo:</label>
+                        <input type="file" id="photo" name="photo" accept="image/*" capture="camera">
+                        <button type="button" onclick="raiseComplaint()">Raise Complaint</button>
+                        <img id="photoPreview" src="#" alt="Photo Preview" style="display:none; width: 100px; height: 100px;"/>
+                    </div>
+                   
+                </form>
+                <div id="updatesContainer">
+                    <!-- Updates from users will be displayed here -->
+                </div>
+            </div>
+            <div class="row">
+                <!-- Complaints Section -->
+                <h2>Complaints</h2>
+                <div id="complaintsContainer" class="complaints-section">
+                    <!-- Complaints from users will be displayed here -->
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Chat Bot Icon and Container -->
+    <img src="images/water.png" alt="Chat Bot Icon" class="chat-bot-icon" onclick="toggleChat()">
+    <div class="chat-container">
+        <div class="chat-header">Chat with OpenAI Bot</div>
+        <div class="chat-body" id="chatBody"></div>
+        <div class="chat-input">
+            <input type="text" id="userInput" placeholder="Type your message...">
+            <button onclick="sendMessage()">Send</button>
+        </div>
+    </div>
+
+    <script>
+        function navigateTo(page) {
+            window.location.href = page;
+        }
+
+        document.getElementById('photo').addEventListener('change', function(event) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    const preview = document.getElementById('photoPreview');
+                    preview.src = e.target.result;
+                    preview.style.display = 'block';
+                    preview.dataset.imageUrl = e.target.result; // Store image URL in a data attribute
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+
+        function raiseComplaint() {
+            const description = document.getElementById('description').value;
+            const photo = document.getElementById('photo').files[0];
+            const complaintsContainer = document.getElementById('complaintsContainer');
+
+            if (description && photo) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    const complaintHtml = `
+                        <div class="complaint">
+                            <p>${description}</p>
+                            <img src="${e.target.result}" alt="Complaint Photo" style="width: 100px; height: 100px;"/>
+                        </div>
+                    `;
+                    complaintsContainer.innerHTML += complaintHtml;
+
+                    // Clear the form
+                    document.getElementById('description').value = '';
+                    document.getElementById('photo').value = '';
+                    document.getElementById('photoPreview').style.display = 'none';
+
+                    alert('Your complaint has been raised. We will address it as soon as possible.');
+                };
+                reader.readAsDataURL(photo);
+            } else {
+                alert('Please provide a description and a photo.');
+            }
+        }
+
+        document.getElementById('updateForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            const description = document.getElementById('description').value;
+            const photo = document.getElementById('photo').files[0];
+            const updatesContainer = document.getElementById('updatesContainer');
+
+            if (description && photo) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    const updateHtml = `
+                        <div class="update">
+                            <p>${description}</p>
+                            <img src="${e.target.result}" alt="User Photo" style="width: 100px; height: 100px;"/>
+                        </div>
+                    `;
+                    updatesContainer.innerHTML += updateHtml;
+
+                    // Clear the form
+                    document.getElementById('description').value = '';
+                    document.getElementById('photo').value = '';
+                    document.getElementById('photoPreview').style.display = 'none';
+                };
+                reader.readAsDataURL(photo);
+            } else {
+                alert('Please provide a description and a photo.');
+            }
+        });
+
+        let totalWaterUsed = 0;
+        let dailyWaterUsed = 0;
+        let dailyWaterRecord = {}; // Object to store daily water usage
+
+        function recordWaterUsage() {
+            const waterAmountInput = document.getElementById('waterAmount');
+            const waterAmount = parseFloat(waterAmountInput.value);
+
+            if (isNaN(waterAmount) || waterAmount <= 0) {
+                alert('Please enter a valid amount of water.');
+                return;
+            }
+
+            const today = new Date().toLocaleDateString(); // Get today's date as a string
+
+            // Initialize daily water usage if not recorded for today
+            if (!dailyWaterRecord[today]) {
+                dailyWaterRecord[today] = 0;
+            }
+
+            totalWaterUsed += waterAmount;
+            dailyWaterRecord[today] += waterAmount; // Record daily water usage
+            updateTotalWaterDisplay();
+            updateDailyWaterDisplay();
+            waterAmountInput.value = ''; // Clear input field
+        }
+
+        function updateTotalWaterDisplay() {
+            const totalWaterDisplay = document.getElementById('totalWater');
+            totalWaterDisplay.textContent = totalWaterUsed.toFixed(1); // Display total water with one decimal place
+        }
+
+        function updateDailyWaterDisplay() {
+            const today = new Date().toLocaleDateString();
+            const dailyWaterDisplay = document.getElementById('dailyWater');
+            dailyWaterDisplay.textContent = dailyWaterRecord[today].toFixed(1); // Display daily water with one decimal place
+        }
+
+        // Chat Bot functionality
+        function toggleChat() {
+            const chatContainer = document.querySelector('.chat-container');
+            chatContainer.style.display = chatContainer.style.display === 'block' ? 'none' : 'block';
+        }
+
+        function sendMessage() {
+            const userInput = document.getElementById('userInput').value;
+            if (userInput.trim() === '') {
+                return;
+            }
+
+            const chatBody = document.getElementById('chatBody');
+            chatBody.innerHTML += `<div class="message user">${userInput}</div>`;
+
+            // Simulate bot response
+            setTimeout(() => {
+                const botResponse = generateBotResponse(userInput); // Replace with actual bot logic
+                chatBody.innerHTML += `<div class="message bot">${botResponse}</div>`;
+                chatBody.scrollTop = chatBody.scrollHeight; // Scroll to bottom
+            }, 500);
+
+            document.getElementById('userInput').value = ''; // Clear input field
+        }
+
+        function generateBotResponse(userInput) {
+            // Example bot responses based on user input
+            userInput = userInput.toLowerCase().trim();
+
+            if (userInput.includes('how') && userInput.includes('use')) {
+                return "To record water usage, enter the amount in liters and click 'Record Water Usage'.";
+            } else if (userInput.includes('submit') && userInput.includes('update')) {
+                return "To submit updates, fill out the description and upload a photo.";
+            } else if (userInput.includes('total') && userInput.includes('water')) {
+                return `The total water used so far is ${totalWaterUsed.toFixed(1)} liters.`;
+            } else if (userInput.includes('today') && userInput.includes('water')) {
+                return `The total water used so far is ${totalWaterUsed.toFixed(1)} liters.`;
+            } else if (userInput.includes('daily') && userInput.includes('water')) {
+                const today = new Date().toLocaleDateString();
+                return `Today's water usage is ${dailyWaterRecord[today].toFixed(1)} liters.`;
+            } else {
+                return "I'm sorry, I didn't understand. Please ask another question.";
+            }
+        }
+    </script>
+</body>
+</html>

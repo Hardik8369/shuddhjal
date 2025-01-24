@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Settings - Shuddh Jal App</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+
+        .container {
+            width: 80%;
+            margin: auto;
+            padding: 20px;
+        }
+
+        header {
+            background-color: #f8f9fa;
+            padding: 10px 0;
+            display: flex;
+            align-items: center;
+        }
+
+        .menu-icon {
+            cursor: pointer;
+            width: 30px;
+        }
+
+        .logo {
+            height: 40px;
+            margin-left: 10px;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 8px;
+            box-sizing: border-box;
+        }
+
+        #profile-photo-preview {
+            display: block;
+            margin-top: 10px;
+            max-width: 100px;
+            max-height: 100px;
+        }
+
+        button {
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+            align-self: flex-start;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        .danger-button {
+            background-color: #dc3545;
+        }
+
+        .danger-button:hover {
+            background-color: #c82333;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <img src="images/menu.png" alt="Menu Icon" class="menu-icon" onclick="navigateTo('index.html')">
+            <img src="images/SHUDDH JAL NAME.png" alt="Shuddh Jal" class="logo">
+        </div>
+    </header>
+    <main>
+        <div class="container">
+            <h1>Settings</h1>
+            <form id="settings-form">
+                <div class="form-group">
+                    <label for="profile-photo">Profile Photo:</label>
+                    <input type="file" id="profile-photo" onchange="previewProfilePhoto(event)">
+                    <img id="profile-photo-preview" src="" alt="Profile Photo Preview">
+                </div>
+                <div class="form-group">
+                    <label for="user-id">User ID:</label>
+                    <input type="text" id="user-id" value="12345">
+                </div>
+                <div class="form-group">
+                    <label for="email">Email:</label>
+                    <input type="email" id="email" value="user@example.com">
+                </div>
+                <div class="form-group">
+                    <label for="phone">Phone:</label>
+                    <input type="text" id="phone" value="+1234567890">
+                </div>
+                <div class="form-group">
+                    <label for="address">Address:</label>
+                    <input type="text" id="address" value="1234 Water Street, City, Country">
+                </div>
+                <button type="button" onclick="saveSettings()">Save</button>
+                <button type="button" class="danger-button" onclick="logout()">Logout</button>
+                <button type="button" class="danger-button" onclick="deleteAccount()">Delete Account</button>
+            </form>
+        </div>
+    </main>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Load the settings from local storage
+            const settings = JSON.parse(localStorage.getItem('settings')) || {};
+            if (settings.profilePhoto) {
+                document.getElementById('profile-photo-preview').src = settings.profilePhoto;
+            }
+            document.getElementById('user-id').value = settings.userId || '12345';
+            document.getElementById('email').value = settings.email || 'user@example.com';
+            document.getElementById('phone').value = settings.phone || '+1234567890';
+            document.getElementById('address').value = settings.address || '1234 Water Street, City, Country';
+        });
+
+        function navigateTo(url) {
+            window.location.href = url;
+        }
+
+        function previewProfilePhoto(event) {
+            const reader = new FileReader();
+            reader.onload = function() {
+                const img = document.getElementById('profile-photo-preview');
+                img.src = reader.result;
+            }
+            reader.readAsDataURL(event.target.files[0]);
+        }
+
+        function saveSettings() {
+            const settings = {
+                profilePhoto: document.getElementById('profile-photo-preview').src,
+                userId: document.getElementById('user-id').value,
+                email: document.getElementById('email').value,
+                phone: document.getElementById('phone').value,
+                address: document.getElementById('address').value
+            };
+            localStorage.setItem('settings', JSON.stringify(settings));
+            alert('Settings saved!');
+        }
+
+        function logout() {
+            // Add your logout functionality here
+            alert('Logged out!');
+            // Example: Navigate to the login page
+            navigateTo('login.html');
+        }
+
+        function deleteAccount() {
+            if (confirm('Are you sure you want to delete your account? This action cannot be undone.')) {
+                // Add your delete account functionality here
+                localStorage.removeItem('settings');
+                alert('Account deleted!');
+                // Example: Navigate to the signup page
+                navigateTo('signup.html');
+            }
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shuddh Jal - Customer Care</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+           padding: 0;
+           background-image: url(https://png.pngtree.com/thumb_back/fh260/background/20220215/pngtree-blue-bubble-water-drop-cosmetic-background-image_926347.jpg);
+            background-repeat: no-repeat;
+           background-size: cover;
+    background-position: center;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+    
+
+        .container {
+            width: 80%;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        header {
+            background-color:transparent;
+            padding: 20px 0;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .menu-icon {
+            width: 30px;
+            cursor: pointer;
+        }
+
+        h1 {
+            display: inline-block;
+            margin: 0;
+            padding-left: 10px;
+        }
+
+        .contact-box {
+            border: 2px solid #000;
+            padding: 20px;
+            margin-top: 20px;
+            width: 300px; /* Ensures the box is square */
+            height: 300px; /* Ensures the box is square */
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            background-color:transparent;
+        }
+
+        .contact-box h3 {
+            margin-top: 0;
+        }
+
+        .contact-box p {
+            margin: 5px 0;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <img src="images/menu.png" alt="Menu Icon" class="menu-icon" onclick="navigateTo('index.html')">
+            <h1>Customer Care</h1>
+        </div>
+    </header>
+    <main>
+        <div class="container">
+           <h1>Contact Us</h1>
+
+            <div class="contact-box">
+                <h3>Contact Details</h3>
+                <p><strong>Contact:</strong> +91 1234567890</p>
+                <p><strong>Email:</strong> shuddh@gmail.com</p>
+                <p><strong>Address:</strong>jalahalli, bengaluru,karnataka</p>
+            </div>
+        </div>
+    </main>
+    <script>
+        function navigateTo(page) {
+            window.location.href = page;
+        }
+    </script>
+</body>
+</html>

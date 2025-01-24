@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shuddh Jal - Alerts</title>
+    <link rel="stylesheet" href="alerts.css">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <img src="images/menu.png" alt="Menu Icon" class="menu-icon" onclick="navigateTo('index.html')">
+            <h1>Emergency Alerts</h1>
+        </div>
+    </header>
+    <main>
+        <div class="container">
+            <h2>Alerts for the Area</h2>
+            <button id="refresh-button" onclick="fetchAlerts()">Refresh</button>
+            <div id="alerts">
+                <!-- Alerts will be dynamically inserted here -->
+            </div>
+        </div>
+    </main>
+    <script>
+        function navigateTo(page) {
+            window.location.href = page;
+        }
+
+        const apiEndpoint = 'https://your-api-endpoint.com/alerts'; // Replace with your API endpoint
+        const maxRetries = 3;
+
+        function fetchAlerts(attempts = 0) {
+            fetch(apiEndpoint)
+                .then(response => response.json())
+                .then(alerts => {
+                    const alertsContainer = document.getElementById('alerts');
+                    alertsContainer.innerHTML = ''; // Clear any previous alerts
+
+                    alerts.forEach(alert => {
+                        const alertElement = document.createElement('div');
+                        alertElement.classList.add('alert');
+
+                        alertElement.innerHTML = `
+                            <h3>${alert.type}</h3>
+                            <p>${alert.description}</p>
+                            <p><strong>Date:</strong> ${alert.date}</p>
+                        `;
+
+                        alertsContainer.appendChild(alertElement);
+                    });
+                })
+                .catch(error => {
+                    console.error('Error fetching alerts:', error);
+                    if (attempts < maxRetries) {
+                        setTimeout(() => fetchAlerts(attempts + 1), 2000); // Retry after 2 seconds
+                    } else {
+                        useFallbackAlerts();
+                    }
+                });
+        }
+
+        function useFallbackAlerts() {
+            const fallbackAlerts = [
+                {
+                    type: 'Rainfall',
+                    description: 'Heavy rainfall expected in the northern region. Please stay indoors and avoid low-lying areas.',
+                    date: new Date().toISOString().split('T')[0]
+                },
+                {
+                    type: 'Tides',
+                    description: 'High tides expected along the coast between 3 PM and 6 PM. Stay clear of the beach during these hours.',
+                    date: new Date().toISOString().split('T')[0]
+                },
+                {
+                    type: 'Heavy Winds',
+                    description: 'Strong winds predicted in the southwestern area. Secure loose objects and avoid outdoor activities.',
+                    date: new Date().toISOString().split('T')[0]
+                },
+                {
+                    type: 'Drought',
+                    description: 'Water levels are critically low in the central region. Conserve water and follow usage restrictions.',
+                    date: new Date().toISOString().split('T')[0]
+                },
+                {
+                    type: 'Floods',
+                    description: 'Flood warning issued for the eastern valleys due to river overflow. Evacuate if necessary and move to higher ground.',
+                    date: new Date().toISOString().split('T')[0]
+                }
+            ];
+
+            const alertsContainer = document.getElementById('alerts');
+            alertsContainer.innerHTML = ''; // Clear any previous alerts
+
+            fallbackAlerts.forEach(alert => {
+                const alertElement = document.createElement('div');
+                alertElement.classList.add('alert');
+
+                alertElement.innerHTML = `
+                    <h3>${alert.type}</h3>
+                    <p>${alert.description}</p>
+                    <p><strong>Date:</strong> ${alert.date}</p>
+                `;
+
+                alertsContainer.appendChild(alertElement);
+            });
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            fetchAlerts();
+            setInterval(fetchAlerts, 86400000); // Fetch alerts every 24 hours
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shuddh Jal App</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+       
+        .side-menu, .profile-menu {
+            position: fixed;
+            top: 0;
+            width: 250px;
+            height: 100%;
+            background:aqua;
+            box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+            z-index: 1000;
+            padding: 20px;
+        }
+
+        .side-menu {
+            left: 0;
+            transform: translateX(-100%);
+        }
+
+        .side-menu-open {
+            transform: translateX(0);
+        }
+
+        .profile-menu {
+            right: 0;
+            transform: translateX(100%);
+        }
+
+        .profile-menu-open {
+            transform: translateX(0);
+        }
+
+        .close-button {
+            font-size: 24px;
+            cursor: pointer;
+            text-align: right;
+            display: block;
+            margin-bottom: 20px;
+        }
+
+        .profile-details {
+            text-align: center;
+        }
+
+        .profile-details img {
+            border-radius: 50%;
+            width: 100px;
+            height: 100px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <img src="images/menu.png" alt="Menu Icon" class="menu-icon" onclick="toggleMenu()">
+            <img src="images/SHUDDH JAL NAME.png" alt="Shuddh Jal" class="logo">
+            <img src="images/PROFILE ICON.jpg" alt="Profile Icon" class="profile-icon" onclick="toggleProfileMenu()">
+        </div>
+    </header>
+    <main>
+        <div class="container icon-container">
+            <div class="row">
+                <div class="icon" onclick="navigateTo('shuddhjal.html')">
+                    <img src="images/water.png" alt="Shuddhjal">
+                </div>
+            </div>
+            <div class="row">
+                <div class="icon" onclick="navigateTo('meter.html')">
+                    <img src="images/speedometer.png" alt="Meter">
+                </div>
+                <div class="icon" onclick="navigateTo('location.html')">
+                    <img src="images/map.png" alt="location">
+                </div>
+            </div>
+            <div class="row">
+                <div class="icon" onclick="navigateTo('alerts.html')">
+                    <img src="images/alarm.png" alt="alerts">
+                </div>
+                <div class="icon" onclick="navigateTo('tips.html')">
+                    <img src="images/quick-tips.png" alt="Tips">
+                </div>
+            </div>
+        </div>
+    </main>
+    <footer>
+        <div class="container navbar">
+            <img src="images/pen.png" alt="Feedback Icon" onclick="navigateTo('feedback.html')">
+            <img src="images/customer.png" alt="Support Icon" onclick="navigateTo('customer.html')">
+        </div>
+    </footer>
+    <div id="menu" class="side-menu">
+        <span class="close-button" onclick="toggleMenu()">&times;</span>
+        <ul>
+           
+            <li onclick="navigateTo('settings.html')">Settings</li>
+            <li onclick="navigateTo('privacy&policy.html')">Privacy & Policy</li>
+            <li onclick="navigateTo('theme.html')">Change Theme</li>
+        </ul>
+    </div>
+    <div id="profile-menu" class="profile-menu">
+        <span class="close-button" onclick="toggleProfileMenu()">&times;</span>
+        <div class="profile-details">
+            <img src="images/default-profile.jpg" alt="Profile Photo" id="profile-photo">
+            <input type="file" id="upload-photo" style="display:none;" onchange="updateProfilePhoto(event)">
+            <button onclick="document.getElementById('upload-photo').click()">Change Photo</button>
+            <p id="user-id">User ID: 12345</p>
+            <p id="email">Email: user@example.com</p>
+            <p id="phone">Phone: +1234567890</p>
+            <p id="address">Address: 1234 Water Street, City, Country</p>
+        </div>
+    </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Load the settings from local storage
+            const settings = JSON.parse(localStorage.getItem('settings')) || {};
+            if (settings.profilePhoto) {
+                document.getElementById('profile-photo').src = settings.profilePhoto;
+            }
+            document.getElementById('email').textContent = 'Email: ' + (settings.email || 'user@example.com');
+            document.getElementById('phone').textContent = 'Phone: ' + (settings.phone || '+1234567890');
+            document.getElementById('address').textContent = 'Address: ' + (settings.address || '1234 Water Street, City, Country');
+        });
+
+        function navigateTo(page) {
+            window.location.href = page;
+        }
+
+        function toggleMenu() {
+            var menu = document.getElementById('menu');
+            menu.classList.toggle('side-menu-open');
+        }
+
+        function toggleProfileMenu() {
+            var profileMenu = document.getElementById('profile-menu');
+            profileMenu.classList.toggle('profile-menu-open');
+        }
+
+        function changeTheme() {
+            alert('Functionality to change theme goes here');
+        }
+
+        function showTips() {
+            alert('Quotes about water conservation methods');
+        }
+
+        function updateProfilePhoto(event) {
+            var reader = new FileReader();
+            reader.onload = function() {
+                var img = document.getElementById('profile-photo');
+                img.src = reader.result;
+            }
+            reader.readAsDataURL(event.target.files[0]);
+        }
+    </script>
+</body>
+</html>
